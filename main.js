@@ -29,7 +29,7 @@ function generatePaginationButtons(next, prev) {
         return `<button onclick="writeToDocument('${next}')">Next</button>`;
     } else if (!next && prev) {
         return `<button onclick="writeToDocument('${prev}')">Previous</button>`;
-    } 
+    }
 }
 
 function writeToDocument(url) {
@@ -42,6 +42,8 @@ function writeToDocument(url) {
         var pagination;
         if (data.next || data.previous) {
             pagination = generatePaginationButtons(data.next, data.previous);
+        } else {
+            pagination = '';
         }
 
         data = data.results;
@@ -60,6 +62,6 @@ function writeToDocument(url) {
             tableRows.push(`<tr>${dataRow}</tr>`);
         });
 
-        el.innerHTML = `<table>${tableHeaders}${tableRows}</table>${pagination}`;
+        el.innerHTML = `<table>${tableHeaders}${tableRows}</table>${pagination}`.replace(/,/g, '');
     });
 }
